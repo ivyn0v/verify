@@ -1,14 +1,9 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <script type="text/javascript">
-    if (grecaptcha.getResponse() == "success") {
-        function Redirect() {
-            window.location.href = "https://www.youtube.com/";
-        }
-
-        Redirect()
-
-        setTimeout(Redirect, 1);
-    } else alert("You can't proceed!");
+    function onloadCallback() {
+          window.location.href = "https://www.youtube.com/";
+    }
+ 
 </script>
 <center>
 <div data-type="image" class="g-recaptcha" data-sitekey="6Leei1ofAAAAAM5-h4pvCVvIeN1EViaFnKCjzEkj"></div>
