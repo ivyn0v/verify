@@ -1,10 +1,6 @@
-<html>
-  <head>
-    <title>hCaptcha Demo</title>
-    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-  </head>
-  <script type="text/javascript">
-    if (hcaptcha.getResponse() == "success") {
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script type="text/javascript">
+    if (grecaptcha.getResponse() == "success") {
         function Redirect() {
             window.location.href = "https://www.youtube.com/";
         }
@@ -14,12 +10,5 @@
         setTimeout(Redirect, 1000);
     } else alert("You can't proceed!");
 </script>
-  <body>
-    <form action="" method="POST">
-      
-      <div class="h-captcha" data-sitekey="4736a709-b7e0-40fb-92e8-121e74608761"></div>
-      <br />
-      <input type="submit" value="Submit" />
-    </form>
-  </body>
-</html>
+
+<div data-type="image" class="g-recaptcha" data-sitekey="6LeBg1ofAAAAAJ051gq73MCfc_zUgWkNHZ6imkh8"></div>
