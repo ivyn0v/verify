@@ -1,12 +1,20 @@
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script>
-    function onloadCallback() {
-          window.location.href = "https://www.youtube.com/";
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script type="text/javascript">
+  if (grecaptcha.getResponse() == "success") {
+    function Redirect() {
+      window.location.href = "example.com"; // Correct here
     }
- 
+    document.write("You will be redirected to a new page in 5 seconds ");      
+      setTimeout(Redirect,5000); // Correct here
+  }
+  else alert("You can't proceed!");
 </script>
-<div class="center">
-<div data-type="image" class="g-recaptcha" data-sitekey="6Leei1ofAAAAAM5-h4pvCVvIeN1EViaFnKCjzEkj"></div>
+
+<body>
+  <div data-type="image" class="g-recaptcha" data-sitekey="6Leei1ofAAAAAM5-h4pvCVvIeN1EViaFnKCjzEkj"></div>
+</body>
+
+
 </div>
 <style>
 .center {
