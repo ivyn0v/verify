@@ -1,28 +1,55 @@
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script type="text/javascript">
-  if (g-recaptcha.getResponse() == "success") {
-    function Redirect() {
-      window.location.href = "example.com"; // Correct here
+  <html>
+      <head>
+        <title>xd</title>
+         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      </head>
+      <body>
+        <form action="./index.php" method="POST">
+          <!-- here you must input the site key, not the secret key -->
+          <div class="g-recaptcha" data-sitekey="6LeBg1ofAAAAAJ051gq73MCfc_zUgWkNHZ6imkh8"></div>
+          <br/>
+          <input type="submit" value="Submit">
+        </form>
+      </body>
+
+    <?php
+    // here you must input the secret key, not the site key
+    // don´t worry, it is server side protected and won´t be
+    // visible under the page source, it´s php code from now on...
+    $secret = "6LeBg1ofAAAAALgZbYdaYwiSJgQ_sWOHaF73jGSA";
+
+    // set post fields
+    $post = [
+        'secret' => $secret,
+        'response' => $_POST['g-recaptcha-response'],
+        'remoteip'   => $_SERVER['REMOTE_ADDR']
+    ];
+
+    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+
+    // execute!
+    $response = curl_exec($ch);
+
+    // close the connection, release resources used
+    curl_close($ch);
+
+    // do anything you want with your response
+    // var_dump(json_decode($response)); // uncomment this to get the json full response
+    $array = json_decode($response,true);
+    //echo "<pre/>";print_r($array); // uncomment this to get the json to array full response/results
+
+    if($array['success'] == 1){
+    // here we have confirmed the chalenge, do whatever you want here, as redirecting to another
+    // page. i suggest using $_SESSION in order for really protecting the other page to be
+    // redirected from here to be safe, else anyone may access the other page directly 
+    // without passing by the recapctha challenge, so there won´t be any point in this effort!
+        echo "success!" ;
     }
-    document.write("You will be redirected to a new page in 5 seconds ");      
-      setTimeout(Redirect,5000); // Correct here
-  }
-  else alert("You can't proceed!");
-</script>
+    else{
+        echo "Challenge not accepted so far....";
+    }
+    ?>
 
-<body>
-  <div data-type="image" class="g-recaptcha" data-sitekey="6Leei1ofAAAAAM5-h4pvCVvIeN1EViaFnKCjzEkj"></div>
-</body>
-
-
-</div>
-<style>
-.center {
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-border: 5px solid #FFFFFF;
-padding: 10px;
-}
-</style>
+    </html>
